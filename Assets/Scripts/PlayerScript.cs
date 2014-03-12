@@ -63,6 +63,14 @@ public class PlayerScript : MonoBehaviour {
 
     void FixedUpdate()
     {
+        if (Input.GetKey(KeyCode.Space))
+        {
+            moveSpeed = 15f;
+        }
+        else
+        {
+            moveSpeed = 10f;
+        }
         rotateObject();
         moveController();
     }
