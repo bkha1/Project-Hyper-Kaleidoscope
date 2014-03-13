@@ -50,6 +50,7 @@
      <Compile Include="Assets\Scripts\PlayerScript.cs" />
      <Compile Include="Assets\Scripts\RotateScript.cs" />
      <Compile Include="Assets\Scripts\SmoothFollow2D.cs" />
+     <Compile Include="Assets\Scripts\WallScript.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
