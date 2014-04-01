@@ -12,6 +12,7 @@ public class SmoothFollow2D : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         thisTransform = transform;
+        Debug.Log("Initializing SmoothFollow2D");
 	}
 	
 	// Update is called once per frame
