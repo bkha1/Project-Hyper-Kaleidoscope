@@ -23,7 +23,33 @@ public class PlayerScript : MonoBehaviour {
 	void Update () {
         //rotateObject();
         //moveController();
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            moveSpeed = 15f;
+        }
+        else
+        {
+            moveSpeed = 10f;
+        }
+        moveController();
 	}
+
+    void FixedUpdate()
+    {
+        /*if (Input.GetKey(KeyCode.Space))
+        {
+            moveSpeed = 15f;
+        }
+        else
+        {
+            moveSpeed = 10f;
+        }*/
+        rotateObject();
+        //moveController();
+
+        rigidbody2D.velocity = movement;
+    }
 
     void rotateObject()
     {
@@ -63,21 +89,7 @@ public class PlayerScript : MonoBehaviour {
         
         movement = new Vector2(moveX, moveY);//inputX * moveSpeed, inputY * moveSpeed);
         //transform.position += (Vector3)movement;
-        rigidbody2D.velocity = movement;
-    }
-
-    void FixedUpdate()
-    {
-        if (Input.GetKey(KeyCode.Space))
-        {
-            moveSpeed = 15f;
-        }
-        else
-        {
-            moveSpeed = 10f;
-        }
-        rotateObject();
-        moveController();
+        //rigidbody2D.velocity = movement;
     }
 
     void OnTriggerEnter2D(Collider2D collider)
@@ -99,5 +111,7 @@ public class PlayerScript : MonoBehaviour {
         {
             //Debug.Log("HI! I AM A WALL! NICE TO MEET YOU!");
         }
+
+        ShotScript enemyShot = collider.gameObject.GetComponent<ShotScript>();
     }
 }

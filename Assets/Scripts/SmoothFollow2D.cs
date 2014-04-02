@@ -9,6 +9,8 @@ public class SmoothFollow2D : MonoBehaviour {
     private Vector3 velocity = Vector3.zero;
     //private float velocity;
 
+    Vector3 tempVector;
+
 	// Use this for initialization
 	void Start () {
         thisTransform = transform;
@@ -17,16 +19,19 @@ public class SmoothFollow2D : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //smoothFollow();
+        tempVector = thisTransform.position;
+        tempVector.x = Mathf.SmoothDamp(thisTransform.position.x, target.position.x, ref velocity.x, smoothTime);
+        tempVector.y = Mathf.SmoothDamp(thisTransform.position.y, target.position.y, ref velocity.y, smoothTime);
 	}
 
     void FixedUpdate()
     {
-        //smoothFollow();
     }
+
     void LateUpdate()
     {
-        smoothFollow();
+        //smoothFollow();
+        thisTransform.position = tempVector;
     }
 
     void smoothFollow()
