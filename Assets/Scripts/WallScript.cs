@@ -12,4 +12,15 @@ public class WallScript : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {/*
+        ShotScript shot = collider.gameObject.GetComponent<ShotScript>();
+        if(shot!=null)
+        {
+            Destroy(shot.gameObject);
+        }*/
+
+        //Debug.Log("i sense");
+    }
 }

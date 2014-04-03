@@ -54,6 +54,7 @@ public class WeaponScript : MonoBehaviour {
     }
 
     private ShotScript shot;
+    private MoveScript shotMove;
     public void Attack(bool isEnemy)
     {
         if (CanAttack())
@@ -64,7 +65,11 @@ public class WeaponScript : MonoBehaviour {
 
             shotTransform.rotation = transform.rotation;
 
+            shotMove = shotTransform.gameObject.GetComponent<MoveScript>();
+            shotMove.direction = transform.eulerAngles.z;
+
             shot = shotTransform.gameObject.GetComponent<ShotScript>();
+            
 
             if (shot != null)
             {

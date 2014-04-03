@@ -8,11 +8,20 @@ public class ShotScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Destroy(gameObject, 20);
+        Destroy(gameObject, 10);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        WallScript wall = collider.gameObject.GetComponent<WallScript>();
+        if (wall != null)
+        {
+            Destroy(gameObject);
+        }
+    }
 }

@@ -6,6 +6,7 @@ public class MoveScript : MonoBehaviour {
     public int speed = 1;
     public bool useDirection = false;
     public float direction;
+    public bool isRigidbody = false;
     private Vector2 movement;
 
     // Use this for initialization
@@ -19,15 +20,36 @@ public class MoveScript : MonoBehaviour {
     {
         //Debug.Log(transform.rotation.z);
 
-        if (useDirection == false)
+        if (!isRigidbody)
         {
-            movement = new Vector2(Mathf.Cos(Mathf.Deg2Rad * transform.eulerAngles.z), Mathf.Sin(Mathf.Deg2Rad * transform.eulerAngles.z));
+            if (useDirection == false)
+            {
+                movement = new Vector2(Mathf.Cos(Mathf.Deg2Rad * transform.eulerAngles.z), Mathf.Sin(Mathf.Deg2Rad * transform.eulerAngles.z));
+            }
+            else
+            {
+                movement = new Vector2(Mathf.Cos(Mathf.Deg2Rad * direction), Mathf.Sin(Mathf.Deg2Rad * direction));
+            }
+            movement *= Time.deltaTime * speed;
+            transform.position += (Vector3)movement;
         }
-        else
+    }
+
+    void FixedUpdate()
+    {
+        if (isRigidbody)
         {
-            movement = new Vector2(Mathf.Cos(Mathf.Deg2Rad * direction), Mathf.Sin(Mathf.Deg2Rad * direction));
+            if (useDirection == false)
+            {
+                movement = new Vector2(Mathf.Cos(Mathf.Deg2Rad * transform.eulerAngles.z), Mathf.Sin(Mathf.Deg2Rad * transform.eulerAngles.z));
+            }
+            else
+            {
+                movement = new Vector2(Mathf.Cos(Mathf.Deg2Rad * direction), Mathf.Sin(Mathf.Deg2Rad * direction));
+            }
+            movement *= speed;//Time.deltaTime * speed;
+            //transform.position += (Vector3)movement;
+            rigidbody2D.velocity = movement;
         }
-        movement *= Time.deltaTime * speed;
-        transform.position += (Vector3)movement;
     }
 }

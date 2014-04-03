@@ -21,7 +21,7 @@ public class HealthScript : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        /*
+        
         HealthScript enemy = collider.gameObject.GetComponent<HealthScript>();
         if (enemy != null)
         {
@@ -33,14 +33,15 @@ public class HealthScript : MonoBehaviour {
             }
         }
 
-        WallScript wall = collider.gameObject.GetComponent<WallScript>();
-        if (wall != null)
+        ShotScript shot = collider.gameObject.GetComponent<ShotScript>();
+        if (shot != null)
         {
-            if (!isEnemy)
+            if (shot.isEnemyShot != isEnemy)
             {
-                //Debug.Log("HI! I AM A WALL! NICE TO MEET YOU!");
+                hp -= shot.damage;
+                Debug.Log("hp: " + hp);
+                Destroy(shot.gameObject);
             }
         }
-         * */
     }
 }

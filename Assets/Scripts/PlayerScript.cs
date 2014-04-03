@@ -33,6 +33,11 @@ public class PlayerScript : MonoBehaviour {
             moveSpeed = 10f;
         }
         moveController();
+
+        //player dead
+        if (healthscript.hp < 0)
+        {
+        }
 	}
 
     void FixedUpdate()
@@ -94,24 +99,10 @@ public class PlayerScript : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-
-        HealthScript enemy = collider.gameObject.GetComponent<HealthScript>();
-        if (enemy != null)
-        {
-            if (enemy.isEnemy)
-            {
-                //hurt player
-                healthscript.hp--;
-                Debug.Log("hp: " + healthscript.hp);
-            }
-        }
-
         WallScript wall = collider.gameObject.GetComponent<WallScript>();
         if (wall != null)
         {
             //Debug.Log("HI! I AM A WALL! NICE TO MEET YOU!");
         }
-
-        ShotScript enemyShot = collider.gameObject.GetComponent<ShotScript>();
     }
 }
