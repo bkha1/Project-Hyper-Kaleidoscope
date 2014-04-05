@@ -35,7 +35,7 @@ public class PlayerScript : MonoBehaviour {
         moveController();
 
         //player dead
-        if (healthscript.hp < 0)
+        if (healthscript.hp <= 0)
         {
         }
 	}
