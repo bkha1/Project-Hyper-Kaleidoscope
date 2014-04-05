@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\RotateScript.cs" />
      <Compile Include="Assets\Scripts\ShotScript.cs" />
      <Compile Include="Assets\Scripts\SmoothFollow2D.cs" />
+     <Compile Include="Assets\Scripts\SpecialEffectsScript.cs" />
      <Compile Include="Assets\Scripts\WallScript.cs" />
      <Compile Include="Assets\Scripts\WeaponScript.cs" />
   </ItemGroup>

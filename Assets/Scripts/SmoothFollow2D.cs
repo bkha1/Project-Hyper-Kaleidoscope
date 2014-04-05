@@ -11,6 +11,11 @@ public class SmoothFollow2D : MonoBehaviour {
 
     Vector3 tempVector;
 
+    void Awake()
+    {
+        transform.position = new Vector3(target.position.x,target.position.y,transform.position.z);
+    }
+
 	// Use this for initialization
 	void Start () {
         thisTransform = transform;
