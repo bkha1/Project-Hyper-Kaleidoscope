@@ -48,8 +48,28 @@ public class MoveScript : MonoBehaviour {
                 movement = new Vector2(Mathf.Cos(Mathf.Deg2Rad * direction), Mathf.Sin(Mathf.Deg2Rad * direction));
             }
             movement *= speed;//Time.deltaTime * speed;
-            //transform.position += (Vector3)movement;
             rigidbody2D.velocity = movement;
+
+            /*
+            //messing with addforce; probably will use this for something else?
+            rigidbody2D.AddForce(movement);
+
+            
+            //caps velocities
+            if (rigidbody2D.velocity.x > movement.x)
+            {
+                Vector2 tempvel = rigidbody2D.velocity;
+                tempvel.x = movement.x;
+                rigidbody2D.velocity = tempvel;
+            }
+
+            if (rigidbody2D.velocity.y > movement.y)
+            {
+                Vector2 tempvel = rigidbody2D.velocity;
+                tempvel.y = movement.y;
+                rigidbody2D.velocity = tempvel;
+            }
+             */
         }
     }
 }
