@@ -12,7 +12,19 @@ public class MoveScript : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-
+        if (isRigidbody)
+        {
+            if (useDirection == false)
+            {
+                movement = new Vector2(Mathf.Cos(Mathf.Deg2Rad * transform.eulerAngles.z), Mathf.Sin(Mathf.Deg2Rad * transform.eulerAngles.z));
+            }
+            else
+            {
+                movement = new Vector2(Mathf.Cos(Mathf.Deg2Rad * direction), Mathf.Sin(Mathf.Deg2Rad * direction));
+            }
+            movement *= speed;
+            rigidbody2D.velocity = movement;
+        }
     }
 
     // Update is called once per frame
@@ -38,7 +50,7 @@ public class MoveScript : MonoBehaviour {
     void FixedUpdate()
     {
         if (isRigidbody)
-        {
+        {/*
             if (useDirection == false)
             {
                 movement = new Vector2(Mathf.Cos(Mathf.Deg2Rad * transform.eulerAngles.z), Mathf.Sin(Mathf.Deg2Rad * transform.eulerAngles.z));
@@ -47,11 +59,14 @@ public class MoveScript : MonoBehaviour {
             {
                 movement = new Vector2(Mathf.Cos(Mathf.Deg2Rad * direction), Mathf.Sin(Mathf.Deg2Rad * direction));
             }
-            movement *= speed;//Time.deltaTime * speed;
-            rigidbody2D.velocity = movement;
+            movement *= speed;
+            rigidbody2D.velocity = movement;*/
 
             /*
             //messing with addforce; probably will use this for something else?
+            //better idea is to stop setting the velocity as a constant when it is detected that it touched something, and then set that velocity as an addforce
+            //nevermind, setting velocity at start works
+            
             rigidbody2D.AddForce(movement);
 
             
@@ -68,8 +83,8 @@ public class MoveScript : MonoBehaviour {
                 Vector2 tempvel = rigidbody2D.velocity;
                 tempvel.y = movement.y;
                 rigidbody2D.velocity = tempvel;
-            }
-             */
+            }*/
+             
         }
     }
 }
