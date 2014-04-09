@@ -4,9 +4,9 @@ using System.Collections;
 public class MoveScript : MonoBehaviour {
 
     public int speed = 1;
-    public bool useDirection = false;
+    public bool useDirection = true;
     public float direction;
-    public bool isRigidbody = false;
+    public bool isRigidbody = true;
     private Vector2 movement;
 
     // Use this for initialization
