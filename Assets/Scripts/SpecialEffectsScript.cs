@@ -22,6 +22,7 @@ public class SpecialEffectsScript : MonoBehaviour {
         var effectTransform = Instantiate(hexagonConeEffect) as Transform;
         effectTransform.position = position;
         effectTransform.eulerAngles = euler;
+        //effectTransform.rotation = rotation;
         effectTransform.localScale = scale;
         Destroy(effectTransform.gameObject, 2f);
     }

@@ -31,7 +31,7 @@ public class MoveScript : MonoBehaviour {
     void Update()
     {
         //Debug.Log(transform.rotation.z);
-
+        //Debug.Log(rigidbody2D.velocity.ToString());
         if (!isRigidbody)
         {
             if (useDirection == false)
