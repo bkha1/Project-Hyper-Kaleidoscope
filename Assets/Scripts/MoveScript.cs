@@ -7,6 +7,7 @@ public class MoveScript : MonoBehaviour {
     public bool useDirection = true;
     public float direction;
     public bool isRigidbody = true;
+    public bool applyVelocityConstantly = true;
     private Vector2 movement;
 
     // Use this for initialization
@@ -50,17 +51,20 @@ public class MoveScript : MonoBehaviour {
     void FixedUpdate()
     {
         if (isRigidbody)
-        {/*
-            if (useDirection == false)
+        {
+            if (applyVelocityConstantly)
             {
-                movement = new Vector2(Mathf.Cos(Mathf.Deg2Rad * transform.eulerAngles.z), Mathf.Sin(Mathf.Deg2Rad * transform.eulerAngles.z));
+                if (useDirection == false)
+                {
+                    movement = new Vector2(Mathf.Cos(Mathf.Deg2Rad * transform.eulerAngles.z), Mathf.Sin(Mathf.Deg2Rad * transform.eulerAngles.z));
+                }
+                else
+                {
+                    movement = new Vector2(Mathf.Cos(Mathf.Deg2Rad * direction), Mathf.Sin(Mathf.Deg2Rad * direction));
+                }
+                movement *= speed;
+                rigidbody2D.velocity = movement;
             }
-            else
-            {
-                movement = new Vector2(Mathf.Cos(Mathf.Deg2Rad * direction), Mathf.Sin(Mathf.Deg2Rad * direction));
-            }
-            movement *= speed;
-            rigidbody2D.velocity = movement;*/
 
             /*
             //messing with addforce; probably will use this for something else?

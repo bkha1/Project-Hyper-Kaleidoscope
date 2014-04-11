@@ -13,9 +13,21 @@ public class ShotScript : MonoBehaviour {
         Destroy(gameObject, 20);
 	}
 	
+    private float longevity = 20;
+    private bool addFade = false;
 	// Update is called once per frame
 	void Update () {
-	
+        longevity -= Time.deltaTime;
+        if (longevity <= 3 && !addFade)
+        {
+            gameObject.AddComponent<ObjectFadeAwayScript>();
+            ObjectFadeAwayScript fadeScript = GetComponent<ObjectFadeAwayScript>();
+            if (fadeScript != null)
+            {
+                fadeScript.fadeCooldown = 3;
+            }
+            addFade = true;
+        }
 	}
 
     void LateUpdate()
@@ -40,6 +52,16 @@ public class ShotScript : MonoBehaviour {
                 //Debug.Log(tempdeg);
                 //Quaternion tempq = Quaternion.AngleAxis(tempdeg, Vector3.forward);
                 SpecialEffectsScript.Instance.playHexagonConeEffect(transform.position, new Vector3(0,0,tempdeg), transform.localScale);
+
+                Vector3 tempPos = transform.localScale;
+                tempPos.z = 0;
+                tempPos = tempPos / 10;
+
+                SpecialEffectsScript.Instance.spawnNeutral4StarGray(transform.position, new Vector3(.7f,.7f,1), new Vector2(10,-10));
+                SpecialEffectsScript.Instance.spawnNeutral4StarGray(transform.position, new Vector3(.7f, .7f, 1), new Vector2(-10, -10));
+                SpecialEffectsScript.Instance.spawnNeutral4StarGray(transform.position, new Vector3(.7f, .7f, 1), new Vector2(10, -10));
+                SpecialEffectsScript.Instance.spawnNeutral4StarGray(transform.position, new Vector3(.7f, .7f, 1), new Vector2(10, 10));
+                //rigidbody2D.AddForceAtPosition(new Vector2(1, 0), transform.position);
             }
             else
             {

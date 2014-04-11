@@ -7,6 +7,10 @@ public class SpecialEffectsScript : MonoBehaviour {
 
     public Transform hexagonConeEffect;
 
+    public Transform neutral4StarGray;
+    public Transform neutral4StarRed1;
+    public Transform neutral4StarRed2;
+
 	// Use this for initialization
 	void Awake() {
         if (Instance != null)
@@ -26,6 +30,25 @@ public class SpecialEffectsScript : MonoBehaviour {
         effectTransform.localScale = scale;
         Destroy(effectTransform.gameObject, 2f);
     }
+
+    public void spawnNeutral4StarGray(Vector3 position, Vector3 scale, Vector2 force)
+    {
+        var effectTransform = Instantiate(neutral4StarGray) as Transform;
+        effectTransform.position = position;
+        effectTransform.localScale = scale;
+        //effectTransform.gameObject.rigidbody2D.AddForceAtPosition(new Vector2(1, -1), position);
+        effectTransform.gameObject.rigidbody2D.AddForce(force);
+        Destroy(effectTransform.gameObject, 30);
+    }
+
+    public void spawnNeutral4StarRed1()
+    {
+    }
+
+    public void spawnNeutral4StarRed2()
+    {
+    }
+
 
     /*
     private ParticleSystem instantiate(ParticleSystem prefab, Vector3 position)
