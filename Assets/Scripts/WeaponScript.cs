@@ -105,6 +105,8 @@ public class WeaponScript : MonoBehaviour {
                 shotTransform.position = transform.position;
 
                 shotTransform.rotation = transform.rotation;
+                shotMove = shotTransform.gameObject.GetComponent<MoveScript>();
+                shotMove.direction = transform.eulerAngles.z;
 
                 shot = shotTransform.gameObject.GetComponent<ShotScript>();
 
@@ -138,6 +140,8 @@ public class WeaponScript : MonoBehaviour {
                 shotTransform.position = transform.position;
 
                 shotTransform.rotation = transform.rotation;
+                shotMove = shotTransform.gameObject.GetComponent<MoveScript>();
+                shotMove.direction = transform.eulerAngles.z;
 
                 shot = shotTransform.gameObject.GetComponent<ShotScript>();
 

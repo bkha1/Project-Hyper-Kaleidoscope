@@ -20,7 +20,7 @@ public class EnemyShooterScript : MonoBehaviour {
 
         if (weapon != null && weapon.enabled && weapon.CanAttack())
         {
-            weapon.Attack(true);
+            weapon.Attack(true,0,7);
         }
 	}
 }

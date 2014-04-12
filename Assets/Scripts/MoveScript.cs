@@ -7,7 +7,7 @@ public class MoveScript : MonoBehaviour {
     public bool useDirection = true;
     public float direction;
     public bool isRigidbody = true;
-    public bool applyVelocityConstantly = true;
+    public bool applyVelocityConstantly = false;
     private Vector2 movement;
 
     // Use this for initialization
