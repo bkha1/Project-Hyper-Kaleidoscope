@@ -6,6 +6,7 @@ public class HealthScript : MonoBehaviour {
     public int hp = 1;
     public bool isEnemy = true;
     public bool isInvincible = false;
+    public bool hurtsPlayer = true;
 
     // Use this for initialization
     void Start()
@@ -25,7 +26,7 @@ public class HealthScript : MonoBehaviour {
         HealthScript enemy = collider.gameObject.GetComponent<HealthScript>();
         if (enemy != null)
         {
-            if (enemy.isEnemy && !isEnemy)
+            if (enemy.isEnemy && !isEnemy && enemy.hurtsPlayer)
             {
                 //hurt player
                 hp--;
