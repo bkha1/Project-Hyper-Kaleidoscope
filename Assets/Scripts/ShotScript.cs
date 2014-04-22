@@ -56,11 +56,11 @@ public class ShotScript : MonoBehaviour {
                 //tempdeg += 90;
                 //Debug.Log(tempdeg);
                 //Quaternion tempq = Quaternion.AngleAxis(tempdeg, Vector3.forward);
-                SpecialEffectsScript.Instance.playHexagonConeEffect(transform.position, new Vector3(0,0,tempdeg), transform.localScale);
+                SpecialEffectsScript.Instance.playHexagonConeEffect(new Vector3(transform.position.x,transform.position.y,6), new Vector3(0,0,tempdeg), transform.localScale);
 
-                Vector3 tempPos = transform.localScale;
+                /*Vector3 tempPos = transform.localScale;
                 tempPos.z = 0;
-                tempPos = tempPos / 10;
+                tempPos = tempPos / 10;*/
 
                 //SpecialEffectsScript.Instance.spawnNeutral4StarGray(new Vector3(transform.position.x - tempPos.x,transform.position.y + tempPos.y,transform.position.z), new Vector3(.7f,.7f,1), new Vector2(-10,10));
                 /*SpecialEffectsScript.Instance.spawnNeutral4StarGray(transform.position, new Vector3(.7f, .7f, 1), new Vector2(-10, -10));
@@ -76,6 +76,17 @@ public class ShotScript : MonoBehaviour {
                 foreach (ParticleShooterScript particle in particles)
                 {
                     float tangle = particle.transform.eulerAngles.z;
+
+                    //vary the angles
+                    if (Random.Range(0, 2) == 0)
+                    {
+                        tangle += Random.Range(0, 20);
+                    }
+                    else
+                    {
+                        tangle -= Random.Range(0, 20);
+                    }
+
                     Vector2 tempMovement = new Vector2(Mathf.Cos(Mathf.Deg2Rad * tangle), Mathf.Sin(Mathf.Deg2Rad * tangle));
 
                     if (Random.Range(0, 100) < 10)
