@@ -24,9 +24,10 @@ public class PlayerScript : MonoBehaviour {
         //rotateObject();
         //moveController();
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetButton("Jump")==true)//Input.GetKey(KeyCode.Space))
         {
             moveSpeed = 15f;
+            //Debug.Log("fjdsakl;");
         }
         else
         {
@@ -37,6 +38,7 @@ public class PlayerScript : MonoBehaviour {
         //player dead
         if (healthscript.hp <= 0)
         {
+            //Destroy(gameObject);
         }
 	}
 
