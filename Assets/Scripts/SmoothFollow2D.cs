@@ -46,4 +46,9 @@ public class SmoothFollow2D : MonoBehaviour {
         tempVector.y = Mathf.SmoothDamp(thisTransform.position.y, target.position.y, ref velocity.y, smoothTime);
         thisTransform.position = tempVector;
     }
+
+    public void focusCamera()
+    {
+        transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);
+    }
 }

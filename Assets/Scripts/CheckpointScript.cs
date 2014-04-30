@@ -4,6 +4,7 @@ using System.Collections;
 public class CheckpointScript : MonoBehaviour {
 
     public bool isActive = false;
+    public bool isPrime = false;//prime checkpoint of an area, make it the checkpoint people will spawn towards if no other active checkpoints are found
     private RotateScript[] rotates;
 
     void Awake()
