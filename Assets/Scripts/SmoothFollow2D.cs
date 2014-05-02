@@ -7,7 +7,8 @@ public class SmoothFollow2D : MonoBehaviour {
     public float smoothTime = 0.25f;
     private Transform thisTransform;
     private Vector3 velocity = Vector3.zero;
-    //private float velocity;
+
+    private bool focusing = false;
 
     Vector3 tempVector;
 
@@ -36,7 +37,15 @@ public class SmoothFollow2D : MonoBehaviour {
     void LateUpdate()
     {
         //smoothFollow();
-        thisTransform.position = tempVector;
+        if (!focusing)
+        {
+            thisTransform.position = tempVector;
+        }
+        else
+        {
+            focusing = false;
+            //isFollowing = true;
+        }
     }
 
     void smoothFollow()
@@ -47,8 +56,17 @@ public class SmoothFollow2D : MonoBehaviour {
         thisTransform.position = tempVector;
     }
 
+    
     public void focusCamera()
     {
         transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);
+        focusing = true;
+        //isFollowing = false;
+    }
+
+    private bool isFollowing = true;
+    public void stopFollowing()
+    {
+
     }
 }

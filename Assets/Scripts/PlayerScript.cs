@@ -12,6 +12,7 @@ public class PlayerScript : MonoBehaviour {
 
     private float respawnCooldown = 0;
     private bool isRespawning = false;
+    private Vector2 lastVelocity = new Vector2(0, 0);
 
     void Awake()
     {
@@ -51,6 +52,8 @@ public class PlayerScript : MonoBehaviour {
                 if (c.isActive)
                 {
                     GetComponentInChildren<TrailRenderer>().enabled = false;
+
+                    SpecialEffectsScript.Instance.spawnPlayerRagdoll(gameObject.transform.position, gameObject.transform.localScale, gameObject.transform.eulerAngles, lastVelocity);
 
                     Vector3 tempPos = gameObject.transform.position;
                     tempPos.x = c.transform.transform.position.x;
@@ -104,6 +107,12 @@ public class PlayerScript : MonoBehaviour {
 
             rigidbody2D.velocity = movement;
         }
+    }
+
+    void LateUpdate()
+    {
+        //records velocity at the end of a frame
+        lastVelocity = rigidbody2D.velocity;
     }
 
     void rotateObject()

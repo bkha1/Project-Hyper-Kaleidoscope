@@ -11,6 +11,8 @@ public class SpecialEffectsScript : MonoBehaviour {
     public Transform neutral4StarRed1;
     public Transform neutral4StarRed2;
 
+    public Transform playerRagdoll;
+
 	// Use this for initialization
 	void Awake() {
         if (Instance != null)
@@ -58,6 +60,21 @@ public class SpecialEffectsScript : MonoBehaviour {
         effectTransform.localScale = scale;
         effectTransform.gameObject.rigidbody2D.AddForce(force);
         Destroy(effectTransform.gameObject, 20);
+    }
+
+    public void spawnPlayerRagdoll(Vector3 position, Vector3 scale, Vector3 euler, Vector2 force)
+    {
+        var effectTransform = Instantiate(playerRagdoll) as Transform;
+        effectTransform.position = position;
+        effectTransform.localScale = scale;
+        effectTransform.eulerAngles = euler;
+        //effectTransform.gameObject.rigidbody2D.AddForce(force);
+
+        Rigidbody2D[] rigids = effectTransform.GetComponentsInChildren<Rigidbody2D>();
+        foreach (Rigidbody2D r in rigids)
+        {
+            r.AddForce(force);
+        }
     }
 
 
