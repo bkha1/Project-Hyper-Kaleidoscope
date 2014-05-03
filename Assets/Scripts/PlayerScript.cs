@@ -55,26 +55,20 @@ public class PlayerScript : MonoBehaviour {
 
                     SpecialEffectsScript.Instance.spawnPlayerRagdoll(gameObject.transform.position, gameObject.transform.localScale, gameObject.transform.eulerAngles, lastVelocity);
 
+                    //teleport player to checkpoint
                     Vector3 tempPos = gameObject.transform.position;
                     tempPos.x = c.transform.transform.position.x;
                     tempPos.y = c.transform.transform.position.y;
                     gameObject.transform.position = tempPos;
                     gameObject.rigidbody2D.velocity = new Vector2(0, 0);
-                    //GetComponentInChildren<TrailRenderer>().enabled = true;
 
-                    //instantly transports camera to where the checkpoint is,doesnt work, yet
-                    /*Camera.main.GetComponent<SmoothFollow2D>().enabled = false;
-                    tempPos = Camera.main.transform.position;
-                    tempPos.x = c.transform.transform.position.x;
-                    tempPos.y = c.transform.transform.position.y;
-                    Camera.main.transform.position = tempPos;
-                    */
-                    Camera.main.GetComponent<SmoothFollow2D>().focusCamera();
+                    Camera.main.GetComponent<SmoothFollow2D>().isFollowing = false;
+                    //Camera.main.GetComponent<SmoothFollow2D>().focusCamera();
                     break;
                 }
             }
-            //healthscript.hp = 1;
-            respawnCooldown = .25f;
+            
+            respawnCooldown = 1.5f;
             isRespawning = true;
         }
 
@@ -83,10 +77,14 @@ public class PlayerScript : MonoBehaviour {
             respawnCooldown -= Time.deltaTime;
             if (respawnCooldown <= 0)
             {
+                Camera.main.GetComponent<SmoothFollow2D>().focusCamera();
+                Camera.main.GetComponent<SmoothFollow2D>().isFollowing = true;
+                
                 isRespawning = false;
+                //gameObject.rigidbody2D.velocity = new Vector2(0, 0);
                 GetComponentInChildren<TrailRenderer>().enabled = true;
                 healthscript.hp = 1;
-                //Camera.main.GetComponent<SmoothFollow2D>().enabled = true;
+                
             }
         }
 	}

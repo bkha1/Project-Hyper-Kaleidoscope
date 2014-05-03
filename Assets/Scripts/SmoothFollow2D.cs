@@ -5,6 +5,8 @@ public class SmoothFollow2D : MonoBehaviour {
 
     public Transform target;
     public float smoothTime = 0.25f;
+    public bool isFollowing = true;
+
     private Transform thisTransform;
     private Vector3 velocity = Vector3.zero;
 
@@ -39,7 +41,10 @@ public class SmoothFollow2D : MonoBehaviour {
         //smoothFollow();
         if (!focusing)
         {
-            thisTransform.position = tempVector;
+            if (isFollowing)
+            {
+                thisTransform.position = tempVector;
+            }
         }
         else
         {
@@ -64,9 +69,5 @@ public class SmoothFollow2D : MonoBehaviour {
         //isFollowing = false;
     }
 
-    private bool isFollowing = true;
-    public void stopFollowing()
-    {
-
-    }
+    
 }

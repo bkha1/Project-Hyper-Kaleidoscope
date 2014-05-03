@@ -40,7 +40,7 @@ public class HealthScript : MonoBehaviour {
             if (shot.isEnemyShot != isEnemy)
             {
                 hp -= shot.damage;
-                Debug.Log("hp: " + hp);
+                //Debug.Log("hp: " + hp);
                 //Destroy(shot.gameObject);
             }
         }
