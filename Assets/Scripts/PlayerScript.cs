@@ -9,6 +9,7 @@ public class PlayerScript : MonoBehaviour {
     //private float maxSpeed = 50;
     private Vector2 movement;
     private HealthScript healthscript;
+    private SpriteRenderer[] spriterenderers;
 
     private float respawnCooldown = 0;
     private bool isRespawning = false;
@@ -17,6 +18,7 @@ public class PlayerScript : MonoBehaviour {
     void Awake()
     {
         healthscript = GetComponent<HealthScript>();
+        spriterenderers = GetComponentsInChildren<SpriteRenderer>();
     }
 
 	// Use this for initialization
@@ -51,7 +53,12 @@ public class PlayerScript : MonoBehaviour {
             {
                 if (c.isActive)
                 {
+                    //hide sprites
                     GetComponentInChildren<TrailRenderer>().enabled = false;
+                    foreach (SpriteRenderer spr in spriterenderers)
+                    {
+                        spr.enabled = false;
+                    }
 
                     SpecialEffectsScript.Instance.spawnPlayerRagdoll(gameObject.transform.position, gameObject.transform.localScale, gameObject.transform.eulerAngles, lastVelocity);
 
@@ -61,6 +68,7 @@ public class PlayerScript : MonoBehaviour {
                     tempPos.y = c.transform.transform.position.y;
                     gameObject.transform.position = tempPos;
                     gameObject.rigidbody2D.velocity = new Vector2(0, 0);
+                    
 
                     Camera.main.GetComponent<SmoothFollow2D>().isFollowing = false;
                     //Camera.main.GetComponent<SmoothFollow2D>().focusCamera();
@@ -70,24 +78,39 @@ public class PlayerScript : MonoBehaviour {
             
             respawnCooldown = 1.5f;
             isRespawning = true;
+            spawnedLight = false;
         }
 
         if (isRespawning)
         {
             respawnCooldown -= Time.deltaTime;
-            if (respawnCooldown <= 0)
+            if (respawnCooldown <= .75f)
             {
                 Camera.main.GetComponent<SmoothFollow2D>().focusCamera();
-                Camera.main.GetComponent<SmoothFollow2D>().isFollowing = true;
-                
-                isRespawning = false;
-                //gameObject.rigidbody2D.velocity = new Vector2(0, 0);
-                GetComponentInChildren<TrailRenderer>().enabled = true;
-                healthscript.hp = 1;
+                if (!spawnedLight)
+                {
+                    SpecialEffectsScript.Instance.spawnPlayerRespawnLight(new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, gameObject.transform.position.z - 1), gameObject.transform.localScale);
+                    spawnedLight = true;
+                }
+                if (respawnCooldown <= 0)
+                {
+                    Camera.main.GetComponent<SmoothFollow2D>().isFollowing = true;
+
+                    //isRespawning = false;
+                    //gameObject.rigidbody2D.velocity = new Vector2(0, 0);
+                    GetComponentInChildren<TrailRenderer>().enabled = true;
+                    foreach (SpriteRenderer spr in spriterenderers)
+                    {
+                        spr.enabled = true;
+                    }
+                    healthscript.hp = 1;
+                }
                 
             }
         }
 	}
+
+    private bool spawnedLight = false;
 
     void FixedUpdate()
     {
@@ -104,6 +127,11 @@ public class PlayerScript : MonoBehaviour {
             rotateObject();
 
             rigidbody2D.velocity = movement;
+        }
+
+        if (respawnCooldown <= 0)
+        {
+            isRespawning = false;
         }
     }
 

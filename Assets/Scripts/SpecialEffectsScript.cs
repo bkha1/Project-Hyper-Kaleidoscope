@@ -12,6 +12,7 @@ public class SpecialEffectsScript : MonoBehaviour {
     public Transform neutral4StarRed2;
 
     public Transform playerRagdoll;
+    public Transform playerRespawnLight;
 
 	// Use this for initialization
 	void Awake() {
@@ -75,6 +76,13 @@ public class SpecialEffectsScript : MonoBehaviour {
         {
             r.AddForce(force);
         }
+    }
+
+    public void spawnPlayerRespawnLight(Vector3 position, Vector3 scale)
+    {
+        var effectTransform = Instantiate(playerRespawnLight) as Transform;
+        effectTransform.position = position;
+        effectTransform.localScale = scale;
     }
 
 
