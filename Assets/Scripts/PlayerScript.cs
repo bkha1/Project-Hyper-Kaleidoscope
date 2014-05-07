@@ -48,6 +48,7 @@ public class PlayerScript : MonoBehaviour {
         //player dead
         if (healthscript.hp <= 0 && !isRespawning)
         {
+            bool tempCheckpointFound = false;
             CheckpointScript[] checks = FindObjectsOfType(typeof(CheckpointScript)) as CheckpointScript[];
             foreach (CheckpointScript c in checks)
             {
@@ -72,7 +73,38 @@ public class PlayerScript : MonoBehaviour {
 
                     Camera.main.GetComponent<SmoothFollow2D>().isFollowing = false;
                     //Camera.main.GetComponent<SmoothFollow2D>().focusCamera();
+                    tempCheckpointFound = true;
                     break;
+                }
+            }
+
+            //failsafe, just in case there is no checkpoint found, spawn at prime checkpoint
+            if (!tempCheckpointFound)
+            {
+                foreach (CheckpointScript c in checks)
+                {
+                    if (c.isPrime)
+                    {
+                        //hide sprites
+                        GetComponentInChildren<TrailRenderer>().enabled = false;
+                        foreach (SpriteRenderer spr in spriterenderers)
+                        {
+                            spr.enabled = false;
+                        }
+
+                        SpecialEffectsScript.Instance.spawnPlayerRagdoll(gameObject.transform.position, gameObject.transform.localScale, gameObject.transform.eulerAngles, lastVelocity);
+
+                        //teleport player to checkpoint
+                        Vector3 tempPos = gameObject.transform.position;
+                        tempPos.x = c.transform.transform.position.x;
+                        tempPos.y = c.transform.transform.position.y;
+                        gameObject.transform.position = tempPos;
+                        gameObject.rigidbody2D.velocity = new Vector2(0, 0);
+
+
+                        Camera.main.GetComponent<SmoothFollow2D>().isFollowing = false;
+                        break;
+                    }
                 }
             }
             

@@ -28,9 +28,12 @@ public class HealthScript : MonoBehaviour {
         {
             if (enemy.isEnemy && !isEnemy && enemy.hurtsPlayer)
             {
-                //hurt player
-                hp--;
-                Debug.Log("hp: " + hp);
+                if (!isInvincible)
+                {
+                    //hurt player
+                    hp--;
+                    //Debug.Log("hp: " + hp);
+                }
             }
         }
 
@@ -39,7 +42,10 @@ public class HealthScript : MonoBehaviour {
         {
             if (shot.isEnemyShot != isEnemy)
             {
-                hp -= shot.damage;
+                if (!isInvincible)
+                {
+                    hp -= shot.damage;
+                }
                 //Debug.Log("hp: " + hp);
                 //Destroy(shot.gameObject);
             }
