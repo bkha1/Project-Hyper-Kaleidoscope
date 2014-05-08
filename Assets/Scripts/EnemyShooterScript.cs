@@ -12,6 +12,8 @@ public class EnemyShooterScript : MonoBehaviour {
     public int numOfContractions = 3;//number of contraction shot animations before a cooldown
     private int contractionCounter;
 
+    public float wakeupTime = 0f;
+
     void Awake()
     {
         weapon = GetComponentInChildren<WeaponScript>();
@@ -27,36 +29,42 @@ public class EnemyShooterScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //weapon.shootingRate = .1f;//.3 rate is the perfect point, less and itll shoot more per animation
-
-        if (contractionCounter > 0)
+        if (wakeupTime <= 0)
         {
-            shooting = true;
+            if (contractionCounter > 0)
+            {
+                shooting = true;
+            }
+            else
+            {
+                shooting = false;
+            }
+
+            if (!shooting)
+            {
+                shootCooldownTimer -= Time.deltaTime;
+                if (shootCooldownTimer <= 0)
+                {
+                    contractionCounter = numOfContractions;
+                    shootCooldownTimer = shootCooldown;
+                }
+            }
+
+            animator.SetBool("shooting", shooting);
+
+            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Enemy_Shooter_Contracted"))
+            {//this.animator.GetCurrentAnimatorStateInfo(0).IsName("YourAnimationName"))
+                if (shooting && weapon != null && weapon.enabled && weapon.CanAttack())
+                {
+                    weapon.Attack(true, 0, 5);
+                    animator.SetTrigger("shoot");
+                    contractionCounter--;
+                }
+            }
         }
         else
         {
-            shooting = false;
-        }
-
-        if (!shooting)
-        {
-            shootCooldownTimer -= Time.deltaTime;
-            if (shootCooldownTimer <= 0)
-            {
-                contractionCounter = numOfContractions;
-                shootCooldownTimer = shootCooldown;
-            }
-        }
-
-        animator.SetBool("shooting", shooting);
-
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Enemy_Shooter_Contracted"))
-        {//this.animator.GetCurrentAnimatorStateInfo(0).IsName("YourAnimationName"))
-            if (shooting && weapon != null && weapon.enabled && weapon.CanAttack())
-            {
-                weapon.Attack(true, 0, 5);
-                animator.SetTrigger("shoot");
-                contractionCounter--;
-            }
+            wakeupTime -= Time.deltaTime;
         }
 	}
 }
