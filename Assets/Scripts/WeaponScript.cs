@@ -94,7 +94,7 @@ public class WeaponScript : MonoBehaviour {
         }
     }//end Attack
 
-    public void Attack(bool isEnemy, int ID, int speed)
+    public void Attack(bool isEnemy, int ID, float speed)
     {
         if (weaponID == ID)
         {
@@ -125,7 +125,7 @@ public class WeaponScript : MonoBehaviour {
         }
     }
 
-    public void Attack(bool isEnemy, int ID, int speed, float size)
+    public void Attack(bool isEnemy, int ID, float speed, float size)
     {
         if (weaponID == ID)
         {

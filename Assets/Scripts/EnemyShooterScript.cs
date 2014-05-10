@@ -14,6 +14,8 @@ public class EnemyShooterScript : MonoBehaviour {
 
     public float wakeupTime = 0f;
 
+    public float bulletSpeed = 5;
+
     void Awake()
     {
         weapon = GetComponentInChildren<WeaponScript>();
@@ -56,7 +58,7 @@ public class EnemyShooterScript : MonoBehaviour {
             {//this.animator.GetCurrentAnimatorStateInfo(0).IsName("YourAnimationName"))
                 if (shooting && weapon != null && weapon.enabled && weapon.CanAttack())
                 {
-                    weapon.Attack(true, 0, 5);
+                    weapon.Attack(true, 0, bulletSpeed);
                     animator.SetTrigger("shoot");
                     contractionCounter--;
                 }

@@ -31,7 +31,7 @@ public class SpecialEffectsScript : MonoBehaviour {
         effectTransform.eulerAngles = euler;
         //effectTransform.rotation = rotation;
         effectTransform.localScale = scale;
-        Destroy(effectTransform.gameObject, 2f);
+        Destroy(effectTransform.gameObject, 5f);
     }
 
     public void spawnNeutral4StarGray(Vector3 position, Vector3 scale, Vector2 force)

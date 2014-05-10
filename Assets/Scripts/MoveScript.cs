@@ -3,7 +3,7 @@ using System.Collections;
 
 public class MoveScript : MonoBehaviour {
 
-    public int speed = 1;
+    public float speed = 1;
     public bool useDirection = true;
     public float direction;
     public bool isRigidbody = true;
