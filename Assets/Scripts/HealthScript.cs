@@ -20,6 +20,7 @@ public class HealthScript : MonoBehaviour {
 
     }
 
+    /*
     void OnTriggerEnter2D(Collider2D collider)
     {
         
@@ -46,7 +47,38 @@ public class HealthScript : MonoBehaviour {
                 {
                     hp -= shot.damage;
                 }
-                //Debug.Log("hp: " + hp);
+                //Debug.Log("bullet destroy");
+                //Destroy(shot.gameObject);
+            }
+        }
+    }*/
+
+    void OnCollisionEnter2D(Collision2D collider)
+    {
+        HealthScript enemy = collider.gameObject.GetComponent<HealthScript>();
+        if (enemy != null)
+        {
+            if (enemy.isEnemy && !isEnemy && enemy.hurtsPlayer)
+            {
+                if (!isInvincible)
+                {
+                    //hurt player
+                    hp--;
+                    //Debug.Log("hp: " + hp);
+                }
+            }
+        }
+
+        ShotScript shot = collider.gameObject.GetComponent<ShotScript>();
+        if (shot != null)
+        {
+            if (shot.isEnemyShot != isEnemy)
+            {
+                if (!isInvincible)
+                {
+                    hp -= shot.damage;
+                }
+                //Debug.Log("bullet destroy");
                 //Destroy(shot.gameObject);
             }
         }

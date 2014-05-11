@@ -117,52 +117,68 @@ public class ShotScript : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D collider)
     {
         WallScript wall = collider.gameObject.GetComponent<WallScript>();
-        if (wall != null)
+        ShotScript otherShot = collider.gameObject.GetComponent<ShotScript>();
+        HealthScript healthsc = collider.gameObject.GetComponent<HealthScript>();
+        if (wall != null || otherShot !=null)
         {
-            MoveScript move = GetComponent<MoveScript>();
-            if (move != null)
+            selfTerminate();
+        }
+
+        if (healthsc != null)
+        {
+            if (healthsc.isEnemy)
             {
-                float tempdeg = Mathf.Atan2(lastVelocity.y, lastVelocity.x) * Mathf.Rad2Deg;
-                SpecialEffectsScript.Instance.playHexagonConeEffect(new Vector3(transform.position.x, transform.position.y, 6), new Vector3(0, 0, tempdeg), transform.localScale);
+                selfTerminate();
+            }
+        }
 
-                foreach (ParticleShooterScript particle in particles)
+    }
+
+    public void selfTerminate()
+    {
+        MoveScript move = GetComponent<MoveScript>();
+        if (move != null)
+        {
+            float tempdeg = Mathf.Atan2(lastVelocity.y, lastVelocity.x) * Mathf.Rad2Deg;
+            SpecialEffectsScript.Instance.playHexagonConeEffect(new Vector3(transform.position.x, transform.position.y, 6), new Vector3(0, 0, tempdeg), transform.localScale);
+
+            foreach (ParticleShooterScript particle in particles)
+            {
+                float tangle = particle.transform.eulerAngles.z;
+
+                //vary the angles
+                if (Random.Range(0, 2) == 0)
                 {
-                    float tangle = particle.transform.eulerAngles.z;
+                    tangle += Random.Range(0, 20);
+                }
+                else
+                {
+                    tangle -= Random.Range(0, 20);
+                }
 
-                    //vary the angles
+                Vector2 tempMovement = new Vector2(Mathf.Cos(Mathf.Deg2Rad * tangle), Mathf.Sin(Mathf.Deg2Rad * tangle));
+
+                if (Random.Range(0, 100) < 10)
+                {
+                    SpecialEffectsScript.Instance.spawnNeutral4StarGray(particle.transform.position, new Vector3(.7f, .7f, 1), tempMovement * 12);
+                }
+                else
+                {
                     if (Random.Range(0, 2) == 0)
                     {
-                        tangle += Random.Range(0, 20);
+                        SpecialEffectsScript.Instance.spawnNeutral4StarRed1(particle.transform.position, new Vector3(.7f, .7f, 1), tempMovement * 12);
                     }
                     else
                     {
-                        tangle -= Random.Range(0, 20);
-                    }
-
-                    Vector2 tempMovement = new Vector2(Mathf.Cos(Mathf.Deg2Rad * tangle), Mathf.Sin(Mathf.Deg2Rad * tangle));
-
-                    if (Random.Range(0, 100) < 10)
-                    {
-                        SpecialEffectsScript.Instance.spawnNeutral4StarGray(particle.transform.position, new Vector3(.7f, .7f, 1), tempMovement * 12);
-                    }
-                    else
-                    {
-                        if (Random.Range(0, 2) == 0)
-                        {
-                            SpecialEffectsScript.Instance.spawnNeutral4StarRed1(particle.transform.position, new Vector3(.7f, .7f, 1), tempMovement * 12);
-                        }
-                        else
-                        {
-                            SpecialEffectsScript.Instance.spawnNeutral4StarRed2(particle.transform.position, new Vector3(.7f, .7f, 1), tempMovement * 12);
-                        }
+                        SpecialEffectsScript.Instance.spawnNeutral4StarRed2(particle.transform.position, new Vector3(.7f, .7f, 1), tempMovement * 12);
                     }
                 }
             }
-            else
-            {
-                Debug.Log("cant instantiate effect");
-            }
-            Destroy(gameObject);
         }
+        else
+        {
+            Debug.Log("cant instantiate effect");
+        }
+        Destroy(gameObject);
     }
 }

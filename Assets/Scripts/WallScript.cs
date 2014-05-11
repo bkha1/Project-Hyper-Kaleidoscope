@@ -21,6 +21,12 @@ public class WallScript : MonoBehaviour {
             Destroy(shot.gameObject);
         }*/
 
-        //Debug.Log("i sense");
+        
+
+        /*PlayerScript pl = collider.gameObject.GetComponent<PlayerScript>();
+        if (pl != null)
+        {
+            Debug.Log("i sense");
+        }*/
     }
 }

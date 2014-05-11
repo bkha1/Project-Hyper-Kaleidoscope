@@ -216,11 +216,11 @@ public class PlayerScript : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        WallScript wall = collider.gameObject.GetComponent<WallScript>();
+        /*WallScript wall = collider.gameObject.GetComponent<WallScript>();
         if (wall != null)
         {
-            //Debug.Log("HI! I AM A WALL! NICE TO MEET YOU!");
-        }
+            Debug.Log("HI! I AM A WALL! NICE TO MEET YOU!");
+        }*/
 
         CheckpointScript check = collider.gameObject.GetComponent<CheckpointScript>();
         if (check != null)
