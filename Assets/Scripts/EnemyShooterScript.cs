@@ -13,8 +13,8 @@ public class EnemyShooterScript : MonoBehaviour {
     private int contractionCounter;
 
     public float wakeupTime = 0f;
-
     public float bulletSpeed = 5;
+    //public bool mutualBullets = false;
 
     void Awake()
     {

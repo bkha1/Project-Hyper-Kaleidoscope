@@ -6,13 +6,21 @@ public class ShotScript : MonoBehaviour {
     public int damage = 1;
     public bool isEnemyShot = false;
     //public Transform wallEffectPrefab;
+    public bool inMutualLayer = false;
+
     private Vector2 lastVelocity = new Vector2(0, 0);
     private float longevity = 20;
     private bool addFade = false;
     private ParticleShooterScript[] particles;
+
     void Awake()
     {
         particles = GetComponentsInChildren<ParticleShooterScript>();
+
+        if (inMutualLayer)
+        {
+            gameObject.layer = LayerMask.NameToLayer("Mutual");
+        }
     }
 
 	// Use this for initialization
@@ -32,6 +40,15 @@ public class ShotScript : MonoBehaviour {
                 fadeScript.fadeCooldown = 3;
             }
             addFade = true;
+        }
+
+        if (inMutualLayer)
+        {
+            gameObject.layer = LayerMask.NameToLayer("Mutual");
+        }
+        else
+        {
+            gameObject.layer = LayerMask.NameToLayer("Default");
         }
 	}
 
@@ -114,15 +131,32 @@ public class ShotScript : MonoBehaviour {
         }
     }*/
 
+    
+
     void OnCollisionEnter2D(Collision2D collider)
     {
         WallScript wall = collider.gameObject.GetComponent<WallScript>();
         ShotScript otherShot = collider.gameObject.GetComponent<ShotScript>();
         HealthScript healthsc = collider.gameObject.GetComponent<HealthScript>();
-        if (wall != null || otherShot !=null)
+        if (wall != null || otherShot!=null)
         {
             selfTerminate();
         }
+
+        /*if (!ignoreOtherShots)
+        {
+            if (otherShot != null)
+            {
+                selfTerminate();
+            }
+        }
+        else
+        {
+            if (otherShot != null)
+            {
+                //Physics2D.IgnoreLayerCollision(
+            }
+        }*/
 
         if (healthsc != null)
         {
@@ -130,6 +164,7 @@ public class ShotScript : MonoBehaviour {
             {
                 selfTerminate();
             }
+            
         }
 
     }
