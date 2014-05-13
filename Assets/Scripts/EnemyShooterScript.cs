@@ -16,6 +16,8 @@ public class EnemyShooterScript : MonoBehaviour {
     public float bulletSpeed = 5;
     //public bool mutualBullets = false;
 
+    //private float tempTime = 0;
+
     void Awake()
     {
         weapon = GetComponentInChildren<WeaponScript>();
@@ -31,6 +33,7 @@ public class EnemyShooterScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //weapon.shootingRate = .1f;//.3 rate is the perfect point, less and itll shoot more per animation
+        //tempTime += Time.deltaTime;
         if (wakeupTime <= 0)
         {
             if (contractionCounter > 0)
@@ -40,6 +43,9 @@ public class EnemyShooterScript : MonoBehaviour {
             else
             {
                 shooting = false;
+                //Debug.Log(tempTime);
+                //tempTime = 0;
+                //IT TAKES AROUND .65 seconds to do one shot
             }
 
             if (!shooting)
@@ -52,10 +58,15 @@ public class EnemyShooterScript : MonoBehaviour {
                 }
             }
 
+            /*if(animator.GetCurrentAnimatorStateInfo(0).IsName("Enemy_Shooter_Idle"))
+            {
+                Debug.Log(tempTime);
+            }*/
+
             animator.SetBool("shooting", shooting);
 
             if (animator.GetCurrentAnimatorStateInfo(0).IsName("Enemy_Shooter_Contracted"))
-            {//this.animator.GetCurrentAnimatorStateInfo(0).IsName("YourAnimationName"))
+            {
                 if (shooting && weapon != null && weapon.enabled && weapon.CanAttack())
                 {
                     weapon.Attack(true, 0, bulletSpeed);

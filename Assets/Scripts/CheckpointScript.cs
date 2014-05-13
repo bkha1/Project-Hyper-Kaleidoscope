@@ -5,6 +5,10 @@ public class CheckpointScript : MonoBehaviour {
 
     public bool isActive = false;
     public bool isPrime = false;//prime checkpoint of an area, make it the checkpoint people will spawn towards if no other active checkpoints are found
+
+    public Transform checkpointSection;//should probably make another script for this
+    public int sectionID;//used to compare to the sections id
+
     private RotateScript[] rotates;
 
     void Awake()
