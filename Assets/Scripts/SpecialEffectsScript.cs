@@ -6,6 +6,7 @@ public class SpecialEffectsScript : MonoBehaviour {
     public static SpecialEffectsScript Instance;
 
     public Transform hexagonConeEffect;
+    public Transform octagonBurstEffect;
 
     public Transform neutral4StarGray;
     public Transform neutral4StarRed1;
@@ -32,6 +33,16 @@ public class SpecialEffectsScript : MonoBehaviour {
         //effectTransform.rotation = rotation;
         effectTransform.localScale = scale;
         Destroy(effectTransform.gameObject, 5f);
+    }
+
+    public void playOctagonBurstEffect(Vector3 position, Vector3 euler, Vector3 scale)
+    {
+        var effectTransform = Instantiate(octagonBurstEffect) as Transform;
+        effectTransform.position = position;
+        effectTransform.eulerAngles = euler;
+        //effectTransform.rotation = rotation;
+        effectTransform.localScale = scale;
+        Destroy(effectTransform.gameObject, 2f);
     }
 
     public void spawnNeutral4StarGray(Vector3 position, Vector3 scale, Vector2 force)

@@ -239,4 +239,24 @@ public class PlayerScript : MonoBehaviour {
 
         }
     }
+
+    private float walleffectCooldown = 0;
+    void OnCollisionStay2D(Collision2D collider)
+    {
+        //plays special wall effect when player touches wall
+        WallScript walls = collider.gameObject.GetComponent<WallScript>();
+        if (walls != null)
+        {
+            if (walleffectCooldown <= 0)
+            {
+                //float tempdeg = Mathf.Atan2(gameObject.rigidbody2D.velocity.y,gameObject.rigidbody2D.velocity.x) * Mathf.Rad2Deg;
+                SpecialEffectsScript.Instance.playOctagonBurstEffect(new Vector3(transform.position.x, transform.position.y, 6), new Vector3(0, 0, 0), transform.localScale);
+                walleffectCooldown = .5f;
+            }
+            else
+            {
+                walleffectCooldown -= Time.deltaTime;
+            }
+        }
+    }
 }
