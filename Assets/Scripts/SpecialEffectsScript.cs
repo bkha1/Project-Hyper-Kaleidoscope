@@ -42,7 +42,7 @@ public class SpecialEffectsScript : MonoBehaviour {
         effectTransform.localScale = scale;
         //effectTransform.gameObject.rigidbody2D.AddForceAtPosition(new Vector2(1, -1), position);
         effectTransform.gameObject.rigidbody2D.AddForce(force);
-        Destroy(effectTransform.gameObject, 20);
+        Destroy(effectTransform.gameObject, 10);
     }
 
     public void spawnNeutral4StarRed1(Vector3 position, Vector3 scale, Vector2 force)
@@ -51,7 +51,7 @@ public class SpecialEffectsScript : MonoBehaviour {
         effectTransform.position = position;
         effectTransform.localScale = scale;
         effectTransform.gameObject.rigidbody2D.AddForce(force);
-        Destroy(effectTransform.gameObject, 20);
+        Destroy(effectTransform.gameObject, 10);
     }
 
     public void spawnNeutral4StarRed2(Vector3 position, Vector3 scale, Vector2 force)
@@ -60,7 +60,7 @@ public class SpecialEffectsScript : MonoBehaviour {
         effectTransform.position = position;
         effectTransform.localScale = scale;
         effectTransform.gameObject.rigidbody2D.AddForce(force);
-        Destroy(effectTransform.gameObject, 20);
+        Destroy(effectTransform.gameObject, 10);
     }
 
     public void spawnPlayerRagdoll(Vector3 position, Vector3 scale, Vector3 euler, Vector2 force)
