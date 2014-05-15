@@ -7,6 +7,10 @@ public class WeaponScript : MonoBehaviour {
     public float shootingRate = .25f;
     private float shootCooldown;
 
+    private ShotScript shot;
+    private MoveScript shotMove;
+    private Rigidbody2D shotRigid;
+
     //the weapon id will be used to identify what to activate
     public int weaponID = 0;
 
@@ -53,8 +57,7 @@ public class WeaponScript : MonoBehaviour {
         }
     }
 
-    private ShotScript shot;
-    private MoveScript shotMove;
+    
     public void Attack(bool isEnemy)
     {
         if (CanAttack())
@@ -66,22 +69,30 @@ public class WeaponScript : MonoBehaviour {
             shotTransform.rotation = transform.rotation;
 
             shotMove = shotTransform.gameObject.GetComponent<MoveScript>();
-            shotMove.direction = transform.eulerAngles.z;
+            if (shotMove != null)
+            {
+                shotMove.direction = transform.eulerAngles.z;
+            }
+            else//if there is no movescript attached
+            {
+                shotRigid = shotTransform.gameObject.GetComponent<Rigidbody2D>();
+                if (shotRigid != null)
+                {
+                    Vector2 movement = new Vector2(Mathf.Cos(Mathf.Deg2Rad * transform.eulerAngles.z), Mathf.Sin(Mathf.Deg2Rad * transform.eulerAngles.z));
+                    movement *= 1;
+                    shotTransform.gameObject.rigidbody2D.velocity = movement;
+                }
+                //shotTransform.gameObject.AddComponent<MoveScript>();
+                //shotMove = shotTransform.gameObject.GetComponent<MoveScript>();
+                //shotMove.direction = transform.eulerAngles.z;
+            }
 
             shot = shotTransform.gameObject.GetComponent<ShotScript>();
-            
 
             if (shot != null)
             {
                 shot.isEnemyShot = isEnemy;
             }
-
-            //MoveScript move = shotTransform.gameObject.GetComponent<MoveScript>();
-
-            /*if (move != null)
-            {
-                move.direction = this.transform.right;
-            }*/
         }
     }
 
@@ -105,8 +116,25 @@ public class WeaponScript : MonoBehaviour {
                 shotTransform.position = transform.position;
 
                 shotTransform.rotation = transform.rotation;
+                //shotMove = shotTransform.gameObject.GetComponent<MoveScript>();
+                //shotMove.direction = transform.eulerAngles.z;
+
                 shotMove = shotTransform.gameObject.GetComponent<MoveScript>();
-                shotMove.direction = transform.eulerAngles.z;
+                if (shotMove != null)
+                {
+                    shotMove.direction = transform.eulerAngles.z;
+                    shotMove.speed = speed;
+                }
+                else//if there is no movescript attached
+                {
+                    shotRigid = shotTransform.gameObject.GetComponent<Rigidbody2D>();
+                    if (shotRigid != null)
+                    {
+                        Vector2 movement = new Vector2(Mathf.Cos(Mathf.Deg2Rad * transform.eulerAngles.z), Mathf.Sin(Mathf.Deg2Rad * transform.eulerAngles.z));
+                        movement *= speed;
+                        shotTransform.gameObject.rigidbody2D.velocity = movement;
+                    }
+                }
 
                 shot = shotTransform.gameObject.GetComponent<ShotScript>();
 
@@ -115,12 +143,12 @@ public class WeaponScript : MonoBehaviour {
                     shot.isEnemyShot = isEnemy;
                 }
 
-                MoveScript move = shotTransform.gameObject.GetComponent<MoveScript>();
+                /*MoveScript move = shotTransform.gameObject.GetComponent<MoveScript>();
 
                 if (move != null)
                 {
                     move.speed = speed;
-                }
+                }*/
             }
         }
     }
@@ -140,8 +168,25 @@ public class WeaponScript : MonoBehaviour {
                 shotTransform.position = transform.position;
 
                 shotTransform.rotation = transform.rotation;
+                //shotMove = shotTransform.gameObject.GetComponent<MoveScript>();
+                //shotMove.direction = transform.eulerAngles.z;
+
                 shotMove = shotTransform.gameObject.GetComponent<MoveScript>();
-                shotMove.direction = transform.eulerAngles.z;
+                if (shotMove != null)
+                {
+                    shotMove.direction = transform.eulerAngles.z;
+                    shotMove.speed = speed;
+                }
+                else//if there is no movescript attached
+                {
+                    shotRigid = shotTransform.gameObject.GetComponent<Rigidbody2D>();
+                    if (shotRigid != null)
+                    {
+                        Vector2 movement = new Vector2(Mathf.Cos(Mathf.Deg2Rad * transform.eulerAngles.z), Mathf.Sin(Mathf.Deg2Rad * transform.eulerAngles.z));
+                        movement *= speed;
+                        shotTransform.gameObject.rigidbody2D.velocity = movement;
+                    }
+                }
 
                 shot = shotTransform.gameObject.GetComponent<ShotScript>();
 
@@ -150,12 +195,12 @@ public class WeaponScript : MonoBehaviour {
                     shot.isEnemyShot = isEnemy;
                 }
 
-                MoveScript move = shotTransform.gameObject.GetComponent<MoveScript>();
+                /*MoveScript move = shotTransform.gameObject.GetComponent<MoveScript>();
 
                 if (move != null)
                 {
                     move.speed = speed;
-                }
+                }*/
             }
         }
     }
