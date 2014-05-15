@@ -171,9 +171,9 @@ public class ShotScript : MonoBehaviour {
 
     public void selfTerminate()
     {
-        MoveScript move = GetComponent<MoveScript>();
-        if (move != null)
-        {
+        //MoveScript move = GetComponent<MoveScript>();
+        //if (move != null)
+        //{
             float tempdeg = Mathf.Atan2(lastVelocity.y, lastVelocity.x) * Mathf.Rad2Deg;
             SpecialEffectsScript.Instance.playHexagonConeEffect(new Vector3(transform.position.x, transform.position.y, 6), new Vector3(0, 0, tempdeg), transform.localScale);
 
@@ -209,11 +209,11 @@ public class ShotScript : MonoBehaviour {
                     }
                 }
             }
-        }
-        else
-        {
-            Debug.Log("cant instantiate effect");
-        }
+        //}
+        //else
+        //{
+        //    Debug.Log("cant instantiate effect");
+        //}
         Destroy(gameObject);
     }
 }
