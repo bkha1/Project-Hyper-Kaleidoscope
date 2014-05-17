@@ -240,14 +240,15 @@ public class PlayerScript : MonoBehaviour {
         }
     }
 
-    private float walleffectCooldown = 0;
+    //private float walleffectCooldown = 0;
     void OnCollisionEnter2D(Collision2D collider)
     {
         //plays special wall effect when player touches wall
         WallScript walls = collider.gameObject.GetComponent<WallScript>();
         if (walls != null)
         {
-            SpecialEffectsScript.Instance.playOctagonBurstEffect(new Vector3(transform.position.x, transform.position.y, 6), new Vector3(0, 0, 0), transform.localScale);
+            float tempdeg = Mathf.Atan2(lastVelocity.y, lastVelocity.x) * Mathf.Rad2Deg;
+            SpecialEffectsScript.Instance.playOctagonBurstEffect(new Vector3(transform.position.x, transform.position.y, 6), new Vector3(0, 0, tempdeg), transform.localScale);
             /*
             if (walleffectCooldown <= 0)
             {

@@ -12,6 +12,7 @@ public class SpecialEffectsScript : MonoBehaviour {
     public Transform neutral4StarGray;
     public Transform neutral4StarRed1;
     public Transform neutral4StarRed2;
+    public Transform neutral6StarHollowRagdoll;
 
     public Transform playerRagdoll;
     public Transform playerRespawnLight;
@@ -63,7 +64,7 @@ public class SpecialEffectsScript : MonoBehaviour {
         effectTransform.localScale = scale;
         //effectTransform.gameObject.rigidbody2D.AddForceAtPosition(new Vector2(1, -1), position);
         effectTransform.gameObject.rigidbody2D.AddForce(force);
-        Destroy(effectTransform.gameObject, 10);
+        Destroy(effectTransform.gameObject, 5);
     }
 
     public void spawnNeutral4StarRed1(Vector3 position, Vector3 scale, Vector2 force)
@@ -72,7 +73,7 @@ public class SpecialEffectsScript : MonoBehaviour {
         effectTransform.position = position;
         effectTransform.localScale = scale;
         effectTransform.gameObject.rigidbody2D.AddForce(force);
-        Destroy(effectTransform.gameObject, 10);
+        Destroy(effectTransform.gameObject, 5);
     }
 
     public void spawnNeutral4StarRed2(Vector3 position, Vector3 scale, Vector2 force)
@@ -81,6 +82,22 @@ public class SpecialEffectsScript : MonoBehaviour {
         effectTransform.position = position;
         effectTransform.localScale = scale;
         effectTransform.gameObject.rigidbody2D.AddForce(force);
+        Destroy(effectTransform.gameObject, 5);
+    }
+
+    public void spawnNeutral6StarHollowRagdoll(Vector3 position, Vector3 scale, Vector3 euler, Vector2 force)
+    {
+        var effectTransform = Instantiate(neutral6StarHollowRagdoll) as Transform;
+        effectTransform.position = position;
+        effectTransform.localScale = scale;
+        effectTransform.eulerAngles = euler;
+
+        Rigidbody2D[] rigids = effectTransform.GetComponentsInChildren<Rigidbody2D>();
+        foreach (Rigidbody2D r in rigids)
+        {
+            r.AddForce(force);
+        }
+
         Destroy(effectTransform.gameObject, 10);
     }
 
@@ -97,6 +114,8 @@ public class SpecialEffectsScript : MonoBehaviour {
         {
             r.AddForce(force);
         }
+
+        Destroy(effectTransform.gameObject, 10);
     }
 
     public void spawnPlayerRespawnLight(Vector3 position, Vector3 scale)

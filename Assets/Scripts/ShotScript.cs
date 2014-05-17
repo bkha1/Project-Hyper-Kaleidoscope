@@ -211,23 +211,24 @@ public class ShotScript : MonoBehaviour {
             SpecialEffectsScript.Instance.playHexagonHollowConeEffect(new Vector3(transform.position.x, transform.position.y, 6), new Vector3(0, 0, tempdeg), transform.localScale);
         }
 
-        foreach (ParticleShooterScript particle in particles)
+        if (particleID == 1)
         {
-            float tangle = particle.transform.eulerAngles.z;
+            foreach (ParticleShooterScript particle in particles)
+            {
+                float tangle = particle.transform.eulerAngles.z;
 
-            //vary the angles
-            if (Random.Range(0, 2) == 0)
-            {
-                tangle += Random.Range(0, 20);
-            }
-            else
-            {
-                tangle -= Random.Range(0, 20);
-            }
+                //vary the angles
+                if (Random.Range(0, 2) == 0)
+                {
+                    tangle += Random.Range(0, 20);
+                }
+                else
+                {
+                    tangle -= Random.Range(0, 20);
+                }
 
-            Vector2 tempMovement = new Vector2(Mathf.Cos(Mathf.Deg2Rad * tangle), Mathf.Sin(Mathf.Deg2Rad * tangle));
-            if (particleID == 1)
-            {
+                Vector2 tempMovement = new Vector2(Mathf.Cos(Mathf.Deg2Rad * tangle), Mathf.Sin(Mathf.Deg2Rad * tangle));
+
                 if (Random.Range(0, 100) < 10)
                 {
                     SpecialEffectsScript.Instance.spawnNeutral4StarGray(particle.transform.position, new Vector3(.7f, .7f, 1), tempMovement * 12);
@@ -243,13 +244,14 @@ public class ShotScript : MonoBehaviour {
                         SpecialEffectsScript.Instance.spawnNeutral4StarRed2(particle.transform.position, new Vector3(.7f, .7f, 1), tempMovement * 12);
                     }
                 }
+
             }
         }
-        //}
-        //else
-        //{
-        //    Debug.Log("cant instantiate effect");
-        //}
+        else if (particleID == 2)
+        {
+            //SpecialEffectsScript.Instance.spawnPlayerRagdoll(gameObject.transform.position, gameObject.transform.localScale, gameObject.transform.eulerAngles, lastVelocity);
+            SpecialEffectsScript.Instance.spawnNeutral6StarHollowRagdoll(gameObject.transform.position, gameObject.transform.localScale, gameObject.transform.eulerAngles, lastVelocity);
+        }
         Destroy(gameObject);
     }
 }
