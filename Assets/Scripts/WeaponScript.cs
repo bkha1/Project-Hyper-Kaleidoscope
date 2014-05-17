@@ -11,6 +11,8 @@ public class WeaponScript : MonoBehaviour {
     private MoveScript shotMove;
     private Rigidbody2D shotRigid;
 
+    //TODO: make the variables in the functions public variables for this script, then attack can be called using only a few functions
+
     //the weapon id will be used to identify what to activate
     public int weaponID = 0;
 
@@ -87,12 +89,12 @@ public class WeaponScript : MonoBehaviour {
                 //shotMove.direction = transform.eulerAngles.z;
             }
 
-            shot = shotTransform.gameObject.GetComponent<ShotScript>();
+            /*shot = shotTransform.gameObject.GetComponent<ShotScript>();
 
             if (shot != null)
             {
                 shot.isEnemyShot = isEnemy;
-            }
+            }*/
         }
     }
 
@@ -136,12 +138,11 @@ public class WeaponScript : MonoBehaviour {
                     }
                 }
 
-                shot = shotTransform.gameObject.GetComponent<ShotScript>();
-
+                /*shot = shotTransform.gameObject.GetComponent<ShotScript>();
                 if (shot != null)
                 {
                     shot.isEnemyShot = isEnemy;
-                }
+                }*/
 
                 /*MoveScript move = shotTransform.gameObject.GetComponent<MoveScript>();
 
@@ -188,12 +189,12 @@ public class WeaponScript : MonoBehaviour {
                     }
                 }
 
-                shot = shotTransform.gameObject.GetComponent<ShotScript>();
+                /*shot = shotTransform.gameObject.GetComponent<ShotScript>();
 
                 if (shot != null)
                 {
                     shot.isEnemyShot = isEnemy;
-                }
+                }*/
 
                 /*MoveScript move = shotTransform.gameObject.GetComponent<MoveScript>();
 

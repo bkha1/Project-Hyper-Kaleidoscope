@@ -6,7 +6,11 @@ public class HealthScript : MonoBehaviour {
     public int hp = 1;
     public bool isEnemy = true;
     public bool isInvincible = false;
-    public bool hurtsPlayer = true;
+    //public bool hurtsPlayer = true;
+
+    //new damaging systems
+    public bool doesDamage = false;
+    public int damageAmount = 1;
 
     // Use this for initialization
     void Start()
@@ -58,18 +62,18 @@ public class HealthScript : MonoBehaviour {
         HealthScript enemy = collider.gameObject.GetComponent<HealthScript>();
         if (enemy != null)
         {
-            if (enemy.isEnemy && !isEnemy && enemy.hurtsPlayer)
+            if (enemy.isEnemy && !isEnemy && enemy.doesDamage)
             {
                 if (!isInvincible)
                 {
                     //hurt player
-                    hp--;
+                    hp-=enemy.damageAmount;
                     //Debug.Log("hp: " + hp);
                 }
             }
         }
 
-        ShotScript shot = collider.gameObject.GetComponent<ShotScript>();
+        /*ShotScript shot = collider.gameObject.GetComponent<ShotScript>();
         if (shot != null)
         {
             if (shot.isEnemyShot != isEnemy)
@@ -78,9 +82,7 @@ public class HealthScript : MonoBehaviour {
                 {
                     hp -= shot.damage;
                 }
-                //Debug.Log("bullet destroy");
-                //Destroy(shot.gameObject);
             }
-        }
+        }*/
     }
 }
