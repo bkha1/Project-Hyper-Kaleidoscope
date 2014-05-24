@@ -10,7 +10,7 @@ public class ShotScript : MonoBehaviour {
     public bool inMutualLayer = false;
 
     public bool terminateOnWall = true;
-    public bool terminateOnShot = true;//is this necessary?
+    //public bool terminateOnShot = true;//is this necessary?
     public bool terminateOnEnemy = true;
     public bool terminateOnPlayer = false;
 
@@ -158,23 +158,37 @@ public class ShotScript : MonoBehaviour {
 
         }
 
-        if (terminateOnShot)
+        /*if (terminateOnShot)
         {
             ShotScript otherShot = collider.gameObject.GetComponent<ShotScript>();
             if (otherShot != null)
             {
                 selfTerminate();
             }
-        }
+        }*/
 
         if (terminateOnEnemy)
         {
             HealthScript healthsc = collider.gameObject.GetComponent<HealthScript>();
+            ShotScript otherShot = collider.gameObject.GetComponent<ShotScript>();
             if (healthsc != null)
             {
-                if (healthsc.isEnemy)
+                if (otherShot == null)
                 {
-                    selfTerminate();
+                    if (healthsc.isEnemy)
+                    {
+                        selfTerminate();
+                    }
+                }
+                else//if the object has a healthscript and a shotscript
+                {
+                    if (healthsc.isEnemy)
+                    {
+                        if (!otherShot.inMutualLayer)
+                        {
+                            selfTerminate();
+                        }
+                    }
                 }
 
             }
