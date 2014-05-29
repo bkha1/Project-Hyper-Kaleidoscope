@@ -68,9 +68,9 @@ public class ShotScript : MonoBehaviour {
         lastVelocity = rigidbody2D.velocity;
     }
 
-    /*void OnTriggerEnter2D(Collider2D collider)
+    void OnTriggerEnter2D(Collider2D collider)
     {
-        WallScript wall = collider.gameObject.GetComponent<WallScript>();
+        /*WallScript wall = collider.gameObject.GetComponent<WallScript>();
         if (wall != null)
         {
             //NOTE: SHOULD PROBABLY MOVE THIS TO THE BULLET'S OWN SCRIPT?
@@ -138,8 +138,15 @@ public class ShotScript : MonoBehaviour {
                 Debug.Log("cant instantiate effect");
             }
             Destroy(gameObject);
+        }*/
+
+        //destroy object if it touches a checkpoint
+        CheckpointScript checkpoint = collider.gameObject.GetComponent<CheckpointScript>();
+        if (checkpoint != null)
+        {
+            selfTerminate();
         }
-    }*/
+    }
 
     
 

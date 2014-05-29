@@ -12,6 +12,7 @@ public class WeaponScript : MonoBehaviour {
     private Rigidbody2D shotRigid;
 
     //TODO: make the variables in the functions public variables for this script, then attack can be called using only a few functions
+    //TODO: make it so that it adds a movescript if the attack wants the bullet to have a constant speed?
 
     //the weapon id will be used to identify what to activate
     public int weaponID = 0;
