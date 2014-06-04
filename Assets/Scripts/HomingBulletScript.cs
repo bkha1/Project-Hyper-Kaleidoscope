@@ -3,14 +3,17 @@ using System.Collections;
 
 public class HomingBulletScript : MonoBehaviour {
 
-    private float homingTimer = 100;//time the bullet has to home in, after this expires itll stop homing
+    private float homingTimer = 100;//time the bullet has to home in, after this expires itll stop homing;default 5?
     private float homingCooldown;
     private bool isHoming;
+
+    private float homingWait = 1;//determines how long it will wait before it starts homing
+    private float homingSpeed = 3f;
 
     void Awake()
     {
         homingCooldown = homingTimer;
-        isHoming = true;
+        isHoming = false;
     }
 	// Use this for initialization
 	void Start () {
@@ -19,13 +22,22 @@ public class HomingBulletScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (homingCooldown > 0)
+        if (homingWait <= 0)
         {
-            homingCooldown -= Time.deltaTime;
+            if (homingCooldown > 0)
+            {
+                isHoming = true;
+                homingCooldown -= Time.deltaTime;
+            }
+            else
+            {
+                isHoming = false;
+            }
         }
         else
         {
             isHoming = false;
+            homingWait -= Time.deltaTime;
         }
 
         //Debug.Log(homingCooldown);
@@ -47,8 +59,30 @@ public class HomingBulletScript : MonoBehaviour {
                 float targetAngle = Mathf.Atan2(localTarget.y, localTarget.x);
                 targetAngle *= Mathf.Rad2Deg;
                 //Debug.Log(localTarget);
+                //Debug.Log(targetAngle);
 
-                Vector2 movement = new Vector2(localTarget.x,localTarget.y);
+                Vector2 movement = new Vector2(Mathf.Cos(Mathf.Deg2Rad * targetAngle), Mathf.Sin(Mathf.Deg2Rad * targetAngle));//constant movement speed
+
+                /*
+                float tempX;
+                float tempY;
+                if (localTarget.x > localTarget.y)
+                {
+                    tempY = localTarget.y / Mathf.Abs(localTarget.x);
+                    tempX = localTarget.x/ Mathf.Abs(localTarget.x);
+                }
+                else
+                {
+                    tempX = localTarget.x / Mathf.Abs(localTarget.y);
+                    tempY = localTarget.y / Mathf.Abs(localTarget.y);
+                }
+
+                Vector2 movement = new Vector2(tempX, tempY);*/
+
+                //Vector2 movement = new Vector2(localTarget.x,localTarget.y);//not constant speed
+                //Debug.Log(movement);
+                movement *= homingSpeed;
+                //Debug.Log(movement);
                 rigidbody2D.velocity = movement;
             }
         }
